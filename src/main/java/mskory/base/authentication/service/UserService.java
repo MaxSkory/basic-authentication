@@ -1,9 +1,10 @@
 package mskory.base.authentication.service;
 
-import mskory.base.authentication.dto.UserRegistrationRequestDto;
+import java.util.List;
 import mskory.base.authentication.model.User;
 
 public interface UserService {
+    User findByEmail(String email);
 
-    User save(UserRegistrationRequestDto requestDto);
+    List<User> getAll();
 }
