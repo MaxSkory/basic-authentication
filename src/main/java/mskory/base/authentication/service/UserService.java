@@ -1,10 +1,9 @@
 package mskory.base.authentication.service;
 
 import java.util.List;
-import mskory.base.authentication.model.User;
+import mskory.base.authentication.dto.UserResponseDto;
 
 public interface UserService {
-    User findByEmail(String email);
 
-    List<User> getAll();
+    List<UserResponseDto> getAll();
 }
