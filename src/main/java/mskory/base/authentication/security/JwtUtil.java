@@ -10,9 +10,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import javax.crypto.SecretKey;
-import mskory.base.authentication.exception.JwtInitException;
-import mskory.base.authentication.exception.JwtParsingException;
-import mskory.base.authentication.exception.JwtValidationException;
+import mskory.base.authentication.exception.JwtUtilException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +26,7 @@ public class JwtUtil {
             key = Keys.hmacShaKeyFor(
                     SecureRandom.getInstanceStrong().generateSeed(NUMBER_OF_KEY_BYTES));
         } catch (NoSuchAlgorithmException e) {
-            throw new JwtInitException("Can't generate token secret key.", e);
+            throw new JwtUtilException("Can't generate token secret key.", e);
         }
     }
 
@@ -45,7 +43,7 @@ public class JwtUtil {
     public void validate(String token) {
         Claims claims = this.getClaims(token);
         if (!claims.getExpiration().after(new Date())) {
-            throw new JwtValidationException("Jwt token expired");
+            throw new JwtUtilException("Jwt token expired");
         }
     }
 
@@ -61,7 +59,7 @@ public class JwtUtil {
                     .parseSignedClaims(token)
                     .getPayload();
         } catch (Exception e) {
-            throw new JwtParsingException("Can't parse jwt token.", e);
+            throw new JwtUtilException("Can't parse jwt token.", e);
         }
     }
 }

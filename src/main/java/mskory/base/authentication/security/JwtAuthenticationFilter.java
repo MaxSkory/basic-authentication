@@ -42,6 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(authHeader) && authHeader.startsWith(TOKEN_PREFIX)) {
             return authHeader.substring(TOKEN_PREFIX.length());
         }
-        return null;
+        return "";
     }
 }
